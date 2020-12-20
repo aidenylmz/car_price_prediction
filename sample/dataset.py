@@ -60,7 +60,7 @@ def plot_feature_importance(x, y):
     plt.figure(figsize=(18, 8))
 
     sorted_features = sort_features(
-        model.feature_importances_, y.columns)
+        model.feature_importances_, x.columns)
 
     sns.barplot(x=sorted_features, y=sorted(
         model.feature_importances_, reverse=True))
