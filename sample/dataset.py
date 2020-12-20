@@ -2,6 +2,8 @@ import pandas as pd
 from datetime import datetime
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.ensemble import ExtraTreesRegressor
+from helpers.extensions import sort_features
 
 
 def load_transformed_car_data():
@@ -49,3 +51,17 @@ def load_transformed_car_data():
     plt.savefig('docs/correlation_heatmap.png')
 
     return data
+
+
+def plot_feature_importance(x, y):
+
+    model = ExtraTreesRegressor()
+    model.fit(x, y)
+    plt.figure(figsize=(18, 8))
+
+    sorted_features = sort_features(
+        model.feature_importances_, y.columns)
+
+    sns.barplot(x=sorted_features, y=sorted(
+        model.feature_importances_, reverse=True))
+    plt.savefig('docs/feature_importance.png')
